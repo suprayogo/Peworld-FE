@@ -1,0 +1,178 @@
+// @import "./profile.scss";
+// @import "./halaman-hire.scss";
+// @import "./jobs.scss";
+// @import "./edit-profile.scss";
+@import "./login.scss";
+
+
+$primary: #5e50a1;
+
+.btn-primary {
+  background-color: $primary !important;
+  border-color: $primary !important;
+
+  &:hover {
+    border-color: $primary !important;
+    background-color: $primary !important;
+  }
+}
+
+.btn-outline-primary {
+  border-color: $primary !important;
+  color: $primary !important;
+
+  &:hover {
+    border-color: $primary !important;
+    background-color: $primary !important;
+    color: white !important;
+  }
+  .bg-primary {
+    background-color: $primary !important;
+  }
+}
+
+
+.content-to-center {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+
+.nav-underline {
+  .nav-item {
+    border-color: $primary !important;
+    border-bottom: 1px solid;
+  }
+}
+
+.nav__link {
+  font-size: 18px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.nav__link:hover {
+  font-weight: bold;
+}
+
+.nav__menu-bar {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  cursor: pointer;
+}
+.nav__menu-bar div {
+  width: 40px;
+  height: 4px;
+  background-color: black;
+  border-radius: 2px;
+}
+.nav__menu-list {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px;
+  width: 288px;
+  row-gap: 24px;
+  right: -288px;
+  padding: 24px 16px;
+  transition: all 0.2s;
+  min-height: calc(100vh - 60px);
+  background-color: white;
+}
+.nav__menu-list.active {
+  right: 0;
+}
+
+.box-gray {
+  position: absolute;
+  border-style: solid 1px;
+  width: 400px;
+  height: 400px;
+  transform: rotate(80deg);
+  top: auto;
+  z-index: -1;
+  background-color: #e2e5ed;
+}
+
+.box-gray-2 {
+  position: absolute;
+  border-style: solid 1px;
+  width: 400px;
+  height: 300px;
+  transform: rotate(10deg);
+  z-index: -1;
+  background-color: #e2e5ed;
+}
+
+
+.box-gray-3 {
+  position: absolute;
+  border-style: solid 1px;
+  width: 400px;
+  height: 300px;
+  transform: rotate(-10deg);
+  top: auto;
+  z-index: -1;
+  background-color: #e2e5ed;
+}
+
+
+.box-purple {
+  position: absolute;
+  bottom: 0;
+  left: -5%;
+  width: 20%;
+  height: 20%;
+  background-color: #5e50a1;
+  z-index: 1;
+}
+
+.box-orange {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+
+  z-index: 3;
+  display: block;
+  float: right;
+}
+
+div div img {
+  z-index: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .nav__menu-bar {
+    display: none;
+  }
+  .nav__menu-list {
+    position: unset;
+    flex-direction: row;
+    min-height: fit-content;
+    width: fit-content;
+    column-gap: 24px;
+    align-items: center;
+  }
+  .nav__link::before {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 6px;
+    bottom: -16px;
+    left: 0;
+    background-color: black;
+    transition: all 0.2s;
+  }
+
+  .nav__link:hover:before {
+    width: 100%;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px){ 
+
+
+
+}
