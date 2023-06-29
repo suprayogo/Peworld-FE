@@ -4,7 +4,9 @@
 // @import "./edit-profile.scss";
 @import "./login.scss";
 @import "./register.scss";
-
+@import "./navbar.scss";
+@import "./landing-page.scss";
+@import "./footer.scss";
 
 $primary: #5e50a1;
 
@@ -32,13 +34,11 @@ $primary: #5e50a1;
   }
 }
 
-
 .content-to-center {
   height: 100vh;
   display: flex;
   align-items: center;
 }
-
 
 .nav-underline {
   .nav-item {
@@ -85,40 +85,6 @@ $primary: #5e50a1;
 .nav__menu-list.active {
   right: 0;
 }
-
-.box-gray {
-  position: absolute;
-  border-style: solid 1px;
-  width: 400px;
-  height: 400px;
-  transform: rotate(80deg);
-  top: auto;
-  z-index: -1;
-  background-color: #e2e5ed;
-}
-
-.box-gray-2 {
-  position: absolute;
-  border-style: solid 1px;
-  width: 400px;
-  height: 300px;
-  transform: rotate(10deg);
-  z-index: -1;
-  background-color: #e2e5ed;
-}
-
-
-.box-gray-3 {
-  position: absolute;
-  border-style: solid 1px;
-  width: 400px;
-  height: 300px;
-  transform: rotate(-10deg);
-  top: auto;
-  z-index: -1;
-  background-color: #e2e5ed;
-}
-
 
 .box-purple {
   position: absolute;
@@ -170,10 +136,4 @@ div div img {
   .nav__link:hover:before {
     width: 100%;
   }
-}
-
-@media (min-width: 320px) and (max-width: 767px){ 
-
-
-
 }

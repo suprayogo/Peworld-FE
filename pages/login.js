@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
+
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { loginSuccess } from '@/store/actions';
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-  const dispatch = useDispatch();
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,9 @@ function Login() {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
         { email: email,
           password: password }
-      );
+
+          );
+       
 
       Swal.fire({
         title: 'Login Success',
@@ -27,10 +29,8 @@ function Login() {
         icon: 'success',
       }).then(() => {
         localStorage.setItem('auth', 'true');
-        localStorage.setItem('token', response?.data?.token);
+        localStorage.setItem('token', response?.data?.data?.token);
 
-        // Dispatch the login success action
-        dispatch(loginSuccess(response.data.token));
 
         router.replace('/');
       });
