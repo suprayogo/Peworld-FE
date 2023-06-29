@@ -52,9 +52,9 @@ function Register() {
         let errorMessage = 'Something went wrong in our app';
 
         if (error?.response?.data?.messages) {
-          errorMessage = error.response.data.messages;
+          const { password } = error.response.data.messages;
+          errorMessage = password?.message || errorMessage;
         }
-  
       Swal.fire({
         title: 'Register Failed',
         text: errorMessage,
