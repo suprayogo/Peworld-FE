@@ -1,28 +1,30 @@
-
-.whatsapp-button {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border: none;
-  background-color: green;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.whatsapp-icon {
-  margin-right: 5px;
-}
-
-.whatsapp-button:hover {
-  background-color: darkgreen;
-}
-
-.whatsapp-icon {
-    margin-right: 5px;
-    font-size: 25px; /* Adjust the font-size to make the icon larger */
+#footer-page{
+  .whatsapp-button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
   }
+  
+  .whatsapp-icon {
+    margin-right: 5px;
+  }
+  
+  .whatsapp-button:hover {
+    background-color: darkgreen;
+  }
+  
+  .whatsapp-icon {
+      margin-right: 5px;
+      font-size: 25px; /* Adjust the font-size to make the icon larger */
+    }
+}
+
 
   @media (max-width: 767px) {
 
