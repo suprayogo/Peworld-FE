@@ -140,13 +140,13 @@ function Edit() {
                     Simpan
                   </button>
 
-                  <a
+                  <Link
                 href="/profile"
                 className="btn btn-outline-primary mt-0 mb-2 w-100"
           
               >
                 Batal
-              </a>
+              </Link>
                 </div>
               </div>
             </div>
