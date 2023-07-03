@@ -5,9 +5,55 @@
     height: 20rem;
     background-color:#5E50A1;
 
-
-  
+    
+    .photo-input {
+      /* Add your desired styles here */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f7f7f7;
+      color: #333;
+      font-size: 14px;
       
+      /* Add more styles as needed */
+    }
+    
+    /* Optional: Style the file name label */
+    .photo-input::after {
+      content: attr(data-file-name);
+      font-size: 12px;
+      color: #666;
+      display: block;
+      margin-top: 5px;
+    }
 
 
+.modal-content{
+    position:relative;
+    animation: rainbow-shadow 3s infinite;
+}
+
+@keyframes rainbow-shadow {
+    0% {
+      box-shadow: 0 0 10px 3px #ff0000;
+    }
+    16.66% {
+      box-shadow: 0 0 10px 3px #ff7f00;
+    }
+    33.33% {
+      box-shadow: 0 0 10px 3px #ffff00;
+    }
+    50% {
+      box-shadow: 0 0 10px 3px #00ff00;
+    }
+    66.66% {
+      box-shadow: 0 0 10px 3px #0000ff;
+    }
+    83.33% {
+      box-shadow: 0 0 10px 3px #4b0082;
+    }
+    100% {
+      box-shadow: 0 0 10px 3px #8f00ff;
+    }
+  }
 }
