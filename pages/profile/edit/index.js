@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function Edit() {
   const router = useRouter();
@@ -15,7 +17,7 @@ function Edit() {
     setSelectedFile(file);
   };
 
-  console.log(setSelectedFile);
+  // console.log(setSelectedFile);
 
   const [profile, setProfile] = useState({
     fullname: "",
@@ -120,28 +122,101 @@ function Edit() {
     });
   };
 
+  // thhis skill
+  const [skills, setSkills] = useState([]);
+  const [profileSkills, setProfileSkills] = useState([]);
+  const handleSkillChange = (e) => {
+    const { value } = e.target;
+    setSkills(value.split(",")); // Split the input value by comma and update the skills array
+  };
 
+  React.useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/profile`,
 
-// thhis skill
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage?.getItem("token")}`,
+          },
+        }
+      )
+      .then((response) => setProfileSkills(response?.data?.data?.skills));
+  }, []);
 
-const [skillInput, setSkillInput] = useState('');
+  const handleSkillSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      // Check if the skill already exists in the profileSkills array
+      if (skills.some((skill) => profileSkills.includes(skill))) {
+        Swal.fire({
+          title: "Skill Sudah Ada",
+          text: "Tambahkan Skill Lainnya",
+          icon: "error",
+        });
+        return;
+      }
+  
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/skills`,
+        { skills },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage?.getItem("token")}`,
+          },
+        }
+      );
+  
+      console.log(response?.data?.data?.skills);
+  
+      setProfileSkills([...profileSkills, ...skills]);
+  
+      setSkills([]); // Clear the input by resetting the skills state to an empty array
+      document.getElementById("skills").value = "";
+  
+    
+    } catch (error) {
+      let errorMessage = "Something went wrong in our app";
+  
+      if (error?.response?.data?.messages?.skills?.message) {
+        errorMessage = error.response.data.messages.skills.message;
+      }
+  
+    
+      console.log(error);
+    }
+  };
+  
 
-const handleSkillInputChange = (e) => {
-  setSkillInput(e.target.value);
-};
+  const handleSkillDelete = async (index) => {
+    try {
+      const updatedSkills = [...profileSkills];
+      updatedSkills.splice(index, 1); // Remove the skill at the specified index
 
-const addSkill = () => {
-  if (skillInput.trim() !== '') {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      skills: [...prevProfile.skills, skillInput.trim()]
-    }));
-    setSkillInput('');
-  }
-};
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/skills/${index}`,
+        {
+          data: { skills: [profileSkills[index]] },
+          headers: {
+            Authorization: `Bearer ${localStorage?.getItem("token")}`,
+          },
+        }
+      );
 
+      console.log(response?.data?.data?.skills);
 
+      setProfileSkills(updatedSkills);
+    } catch (error) {
+      let errorMessage = "Something went wrong in our app";
 
+      if (error?.response?.data?.messages?.skills?.message) {
+        errorMessage = error.response?.data?.messages?.skills?.message;
+      }
+
+      console.log(error);
+    }
+  };
 
   return (
     <div id="Edit-page">
@@ -302,38 +377,50 @@ const addSkill = () => {
               </div>
             </div>
 
-        
-<div className="card mt-3">
-  <div className="card-body">
-    <h4>Skill</h4>
-    <hr />
-    <div className="d-flex">
-      <div className="col-8 m-5 mt-2 mb-3">
-        <input
-          type="text"
-          className="form-control"
-          id="skills"
-          aria-describedby="skills"
-          placeholder="Masukan skills"
-          value={skillInput}
-          onChange={handleSkillInputChange}
-        />
-        <div className="d-inline">
-          {profile?.skills?.map((item, key) => (
-            <span key={key} className="badge bg-warning m-1 p-2">
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="col-2">
-        <button className="btn btn-warning mt-2 mb-2 w-100" onClick={addSkill}>
-          Simpan
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+            <div className="card mt-3">
+              <div className="card-body">
+                <h4>Skill</h4>
+                <hr />
+                <form onSubmit={handleSkillSubmit}>
+                  <div className="d-flex">
+                    <div className="col-8 m-5 mt-2 mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="skills"
+                        placeholder="Masukan skills, contoh: html, PHP, java"
+                        onChange={handleSkillChange}
+                      />
+                      <div className="d-inline">
+                        {profileSkills?.map((item, index) => (
+                          <span
+                            key={index}
+                            className="badge bg-warning m-1 p-2"
+                          >
+                            {item}
+                            <button
+                              onClick={() => handleSkillDelete(index)}
+                              className="ml-2 ms-2 bg-warning"
+                              style={{ color: "red", borderColor: "#FBB017" }}
+                            >
+                              <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="col-2">
+                      <button
+                        type="submit"
+                        className="btn btn-warning mt-2 mb-2 w-100"
+                      >
+                        Simpan
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
 
             <div className="card mt-3">
               <div className="card-body">

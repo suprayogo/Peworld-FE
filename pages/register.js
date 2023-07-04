@@ -10,8 +10,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [company, setCompany] = useState("-");
-  const [job_title, setJob_title] = useState("-");
+  const [company, setCompany] = useState("undefined");
+  const [job_title, setJob_title] = useState("undefined");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
