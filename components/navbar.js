@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-
+import Swal from "sweetalert2";
 
 function Navbar() {
   const [navActive, setNavActive] = useState(null);
@@ -12,6 +11,7 @@ function Navbar() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+
   const handleButtonClick = async () => {
     const isLoggedIn = localStorage.getItem("token");
     if (isLoggedIn) {
@@ -19,14 +19,23 @@ function Navbar() {
     } else {
       try {
         setIsLoading(true);
-        await Swal.fire({
+        const result = await Swal.fire({
           title: "Anda belum login",
           text: "Silahkan login terlebih dahulu",
           icon: "warning",
+          showCancelButton: true, 
           confirmButtonText: "OK",
+          cancelButtonText: "Cancel", 
         });
+        
         setIsLoading(false);
-        router.push("/login");
+  
+        if (result.isConfirmed) {
+        
+          router.push("/login");
+        } else {
+ 
+        }
       } catch (error) {
         setIsLoading(false);
         console.log(error);
@@ -34,18 +43,33 @@ function Navbar() {
     }
   };
 
+
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setAccess(!!token);
   }, []);
 
   const handleLogout = () => {
-    localStorage.clear();
-    setAccess(false);
+    Swal.fire({
+      title: "Anda ingin keluar?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, log out",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        setAccess(false);
 
-    if (typeof window !== "undefined") {
-      window.location.href = "/login";
-    }
+        if (typeof window !== "undefined") {
+          window.location.href = "/";
+        }
+      } else {
+      }
+    });
   };
 
   return (
@@ -80,13 +104,12 @@ function Navbar() {
                   </Link>
 
                   {/* button logout */}
-                  {/*                       
-      <Link href="#" >
-            <button
-             className="btn btn-primary"
-            onClick={handleLogout}
-            >Keluar</button>
-          </Link> */}
+
+                  <Link href="#">
+                    <button className="btn btn-primary" onClick={handleLogout}>
+                      Keluar
+                    </button>
+                  </Link>
                 </div>
               ) : (
                 <>

@@ -9,6 +9,7 @@ function Index() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+
   const handleButtonClick = async () => {
     const isLoggedIn = localStorage.getItem("token");
     if (isLoggedIn) {
@@ -16,14 +17,23 @@ function Index() {
     } else {
       try {
         setIsLoading(true);
-        await Swal.fire({
+        const result = await Swal.fire({
           title: "Anda belum login",
           text: "Silahkan login terlebih dahulu",
           icon: "warning",
+          showCancelButton: true, // Tampilkan tombol "Cancel"
           confirmButtonText: "OK",
+          cancelButtonText: "Cancel", // Teks pada tombol "Cancel"
         });
+  
         setIsLoading(false);
-        router.push("/login");
+  
+        if (result.isConfirmed) {
+
+          router.push("/login");
+        } else {
+        
+        }
       } catch (error) {
         setIsLoading(false);
         console.log(error);
