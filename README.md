@@ -1,8 +1,38 @@
+
+<h3 align="center">Peworld</h3>
+<p align="center">
+  <a href="https://hire-job-v1-rizki-suprayogo.vercel.app/">View Demo</a>
+</p>
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+Peworld is a web-based application designed to streamline the recruitment process. The application boasts an attractive and user-friendly interface to help companies find and recruit suitable employees that match their requirements.
+
+### Technology Used
+- [NextJS](https://nextjs.org/)
+- [Redux](https://redux.js.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Axios](https://github.com/axios/axios)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+- Clone This Repository
+
+`https://github.com/suprayogo/hire-job-v1.git`
+
+- Clone This Repository
+
+`https://github.com/suprayogo/hire-job-v1.git`
+
+- Install Module
+
+`npm install`
+
+- run the development server
 
 ```bash
 npm run dev
@@ -11,6 +41,13 @@ yarn dev
 # or
 pnpm dev
 ```
+
+- Setting .env
+
+```bash
+NEXT_PUBLIC_BASE_URL=YOUR_API_URL
+```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -22,17 +59,53 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Executing program
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Run this project with `npm run dev`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+<!-- SCREENSHOT -->
+## Screenshot
+<hr>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Login
+<img src="./readme/ss-login.jpeg" />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Register
+<img src="./readme/ss-register.jpeg" />
+
+### Landing
+<img src="./readme/ss-landing.jpeg" />
+
+
+### Profile
+<img src="./readme/ss-detail.jpeg" />
+
+
+### Edit Profile
+<img src="./readme/ss-add.jpeg" />
+
+
+### Job List
+<img src="./readme/ss-profile.jpeg" />
+
+
+### Hiring
+<img src="./readme/ss-profile.jpeg" />
+
+<!-- RELATED PROJECT -->
+## Related Project
+
+- [Food Peworld API](https://github.com/suprayogo/hire_job_be)
+- [Food Peworld Demo](https://hire-job-v1-rizki-suprayogo.vercel.app/)
+
+<!-- CONTACT INFO -->
+## Contact Info
+
+Contributors names and contact info:
+
+1. Rizki Suprayogo
+
+- [Linkedin](https://www.linkedin.com/in/rizki-suprayogo/)
+
