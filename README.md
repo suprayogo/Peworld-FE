@@ -80,7 +80,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 
 ### Profile
-<img src="./readme/ss-detail.jpeg" />
+<img src="./readme/ss-profile.jpeg" />
 
 
 ### Edit Profile
