@@ -14,37 +14,39 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+   
+        Swal.showLoading(); 
+  
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
-        { email: email,
-          password: password }
-
-          );
-       
-
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
+        email: email,
+        password: password,
+      });
+  
+      // Close the loading state and show success message
       Swal.fire({
-        title: 'Login Success',
-        text: 'Login Success, Redirecting In App',
-        icon: 'success',
+        title: "Login Success",
+        text: "Login Success, Redirecting In App",
+        icon: "success",
       }).then(() => {
-        localStorage.setItem('auth', 'true');
-        localStorage.setItem('token', response?.data?.data?.token);
-
-
-        router.replace('/');
+        localStorage.setItem("auth", "true");
+        localStorage.setItem("token", response?.data?.data?.token);
+  
+        router.replace("/");
       });
     } catch (error) {
-      let errorMessage = 'Something went wrong in our app';
-
+      let errorMessage = "Something went wrong in our app";
+  
       if (error?.response?.data?.messages) {
         errorMessage = error.response.data.messages;
       }
-
+  
+      // Close the loading state and show error message
       Swal.fire({
-        title: 'Login Failed',
+        title: "Login Failed",
         text: errorMessage,
-        icon: 'error',
+        icon: "error",
       });
       console.log(error);
     }

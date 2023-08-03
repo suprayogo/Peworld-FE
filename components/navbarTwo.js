@@ -98,9 +98,9 @@ function NavbarTwo() {
                         <li className="list-group-item">
                           <Link
                             className="text-black text-decoration-none mb-3 fw-medium"
-                            href="/edit-profile"
+                            href="/profile"
                           >
-                            Edit profile
+                             profile
                           </Link>
                         </li>
                         <li className="list-group-item">
@@ -161,7 +161,7 @@ function NavbarTwo() {
                 <div>
                   {access ? (
                     <div>
-                      <Link href="/edit-profile">
+                      <Link href="/profile">
                         <img
                           className="img-profile  me-3 mb-1 mt-2"
                           src={photo?.photo}
@@ -170,7 +170,7 @@ function NavbarTwo() {
                         />
                       </Link>
 
-                      <Link href="/edit-profile">
+                      <Link href="/profile">
                         <button className="btn btn-primary me-3 mb-5 mt-1">
                           Setting
                         </button>

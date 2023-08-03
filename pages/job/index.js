@@ -1,172 +1,290 @@
-import React, { useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import NavbarTwo from "@/components/navbarTwo";
 import Footer from "@/components/footer";
-import Link from "next/link";
 import axios from "axios";
-
+import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLocationDot,
+  faSuitcase,
+} from "@fortawesome/free-solid-svg-icons";
 import _debounce from "lodash/debounce";
+import { useDispatch, useSelector } from "react-redux";
+import Link from "next/link";
+
 
 function Job(props) {
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [totalPage, setTotalPage] = React.useState(
-    props?.request?.data?.total_page
-  );
-  const [data, setData] = React.useState(props?.request?.data?.rows);
+  const router = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [sortOption, setSortOption] = useState("Sort");
+  const sortOptions = ["Nama", "Skill", "Lokasi"];
+  const dispatch = useDispatch();
 
-  const handleNextPage = (page) => {
-    axios
-      .get(`https://hire-job.onrender.com/v1/job?page=${page}&limit=8`)
-      .then(({ data: { data } }) => {
-        setTotalPage(data?.total_page);
-        setData(data?.rows);
-        setCurrentPage(page);
-      });
+  const user = useSelector((state) => state?.user?.data);
+  const auth = useSelector((state) => state?.auth);
+
+  console.log(auth);
+
+  // server rendering code here
+  const [data, setData] = React.useState(props?.request?.data);
+  const [currentPage, setCurrentPage] = React.useState(0);
+  const [firstPageInSet, setFirstPageInSet] = React.useState(0);
+  const [searchText, setSearchText] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
+  const handleSearchInputChange = (event) => {
+    setSearchText(event.target.value);
   };
 
-  const handleSearch = (keyword) => {
-    if (keyword.trim()) {
-      axios
-        .get(`https://hire-job.onrender.com/v1/job/filter?keyword=${keyword}`)
-        .then(({ data: { data } }) => {
-          setTotalPage(0);
-          setData(data ?? []);
-          setCurrentPage(1);
-        });
-    } else {
-      handleNextPage(1);
+  const handleSortOptionClick = (option) => {
+    setSortOption(option);
+    setShowDropdown(false);
+
+    // Filter the data based on the selected option and search text
+    let sortedData = [];
+    if (option === "Nama") {
+      sortedData = data.filter(
+        (item) =>
+          item.fullname.toLowerCase().includes(searchText.toLowerCase()) &&
+          item.id !== user?.id
+      );
+      // Update the filtered data
+      setFilteredData(sortedData);
+    } else if (option === "Skill") {
+      sortedData = data.filter((item) =>
+        item.skills.some(
+          (skill) =>
+            skill.toLowerCase().includes(searchText.toLowerCase()) &&
+            item.id !== user?.id
+        )
+      );
+      // Update the filtered data
+      setFilteredData(sortedData);
+    }
+  };
+  const itemsPerPage = 3;
+
+  const profiles = filteredData
+    .filter((item) => item.id !== user?.id)
+    .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
+      if ((currentPage + 1) % 5 === 0) {
+        setFirstPageInSet(firstPageInSet + 5);
+      }
     }
   };
 
-  const debounceFn = useCallback(_debounce(handleSearch, 1000), []);
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+      if (currentPage % 5 === 0) {
+        setFirstPageInSet(firstPageInSet - 5);
+      }
+    }
+  };
 
   return (
     <>
-   <NavbarTwo/>
-
-      <div className="container py-5">
-        <div class="mb-3">
-          <input
-            class="form-control"
-            placeholder="Search name, job, skills or location..."
-            onChange={(e) => {
-              debounceFn(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch(e.target.value);
-              }
-            }}
-          />
+      <NavbarTwo />
+      <nav
+        className="navbar navbar-expand-lg navbar-primary"
+        style={{ backgroundColor: "#5E50A1", marginTop: "15vh" }}
+      >
+        <div className="container">
+          <a className="navbar-brand fs-4 text-light fw-bold ms-3">Top Jobs</a>
         </div>
+      </nav>
+      <div className="container ">
+        <div className="row ">
+          <div className="col-md-12 col-lg-12 col-sm-12 col-xs-12 mt-5 ">
+            <div
+              className="search mb-5"
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <input
+                type="text"
+                className="form-control form-control-lg bg-body-tertiary"
+                aria-label="Text input with dropdown button"
+                placeholder="search for any skill"
+                value={searchText}
+                onChange={handleSearchInputChange}
+                style={{
+                  flex: 1,
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                  padding: "10px",
+                  borderRadius: "4px",
+                }}
+              />
 
-        <div className="row">
-          {data.length === 0 ? (
-            <>
-              <div className="d-flex justify-content-center mb-3 mt-5">
-                <img src="/empty.svg" style={{ width: "300px" }} />
-              </div>
-              <h3 className="text-center">Data not found</h3>
-            </>
-          ) : null}
-          {data.map((item, key) => (
-            <div className="col col-md-3 mb-4" key={key}>
-              <Link href={`/job/${item?.id}`}>
-                <div class="card">
-                  <img
-                    src={
-                      item?.photo ??
-                      "https://www.w3schools.com/howto/img_avatar.png"
-                    }
-                    class="card-img-top"
-                    alt="profile"
-                    width="100%"
+              <div className="action d-inline-flex align-items-center ms-2 me-2">
+                <div
+                  className="vertical-line"
+                  style={{ borderLeft: "2px solid #9EA0A5", height: "40px" }}
+                ></div>
+                <div className="btn-group ms-2 me-2">
+                  <button
+                    className="btn btn-outline-primary dropdown-toggle"
+                    type="button"
+                    onClick={() => setShowDropdown(!showDropdown)}
                     style={{
-                      minHeight: "300px",
-                      maxHeight: "300px",
-                      objectFit: "cover",
-                      backgroundColor: "#38373D",
+                      textAlign: "center",
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                      padding: "10px",
+                      borderRadius: "4px",
                     }}
-                  />
-                  <div class="card-body">
-                    <h5 class="card-text text-decoration-none">
-                      {item?.fullname ?? "Unknown"}
+                  >
+                    {sortOption}
+                  </button>
+                  {showDropdown && (
+                    <div className="dropdown-menu show">
+                      {sortOptions.map((option, index) => (
+                        <div key={index}>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={() => handleSortOptionClick(option)}
+                          >
+                            {option}
+                          </a>
+                        </div>
+                      ))}
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={() => {
+                          setShowDropdown(false);
+                        }}
+                      >
+                        Close
+                      </a>
+                    </div>
+                  )}
+                </div>
+                <button
+                  className="btn btn-primary"
+                  style={{
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                    padding: "10px",
+                    borderRadius: "4px",
+                  }}
+                  type="button"
+                  id="button-addon2"
+                  onClick={() => handleSortOptionClick(sortOption)}
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+
+            {profiles.map((profile, index) => (
+              <div
+                className="card "
+                style={{
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                  padding: "10px",
+                  borderRadius: "4px",
+                }}
+                key={index}
+              >
+                <div className="row align-items-center mt-3 mb-3 ms-3">
+                  <div className="col-12 col-md-2 text-center">
+                    <img
+                      src={profile?.photo || "/default_photo.jpg"}
+                      alt="profile"
+                      className="img-fluid rounded-circle object-fit-cover"
+                      style={{ width: `20vh`, height: `20vh` }}
+                    />
+                  </div>
+                  <div className="col-12 col-md-8 text-center text-md-start text-lg-start">
+                    <h5>
+                      {profile?.fullname
+                        ? profile?.fullname.charAt(0).toUpperCase() +
+                          profile?.fullname.slice(1)
+                        : "Nama tidak tersedia"}
                     </h5>
-                    <p class="card-text text-decoration-none">
-                      {item?.job_title ?? "Unknown"}
-                    </p>
 
-                    {item?.skills?.slice(0, 4)?.map((res, key) => (
-                      <span
-                        class="badge text-bg-warning"
-                        style={{ marginRight: "10px" }}
-                        key={key}
-                      >
-                        {res}
-                      </span>
-                    ))}
+                    <div className="d-flex align-items-center justify-content-center justify-content-md-start">
+                      <FontAwesomeIcon icon={faSuitcase} />
+                      <p className="m-0 ms-2 text-secondary">
+                        {profile?.job_title && profile.job_title !== "-"
+                          ? profile.job_title
+                          : "Job title tidak tersedia"}
+                      </p>
+                    </div>
 
-                    {item?.skills?.length >= 5 ? (
-                      <span
-                        class="badge text-bg-warning"
-                        style={{ marginRight: "10px" }}
-                      >
-                        {" "}
-                        {item?.skills?.length - 4} more +
-                      </span>
-                    ) : null}
+                    <div className="d-flex align-items-center justify-content-center justify-content-md-start">
+                      <FontAwesomeIcon icon={faLocationDot} />
+                      <p className="m-0 ms-2 text-secondary">
+                        {profile?.domicile && profile.domicile !== "-"
+                          ? profile.domicile
+                          : "Domisili tidak tersedia"}
+                      </p>
+                    </div>
+                    <div>
+                      {Array.isArray(profile.skills) ? (
+                        profile.skills.map((skill, key) => (
+                          <span key={key} className="badge bg-warning m-1 p-2">
+                            {skill}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="badge bg-warning m-1 p-2">
+                          {profile.skills}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-12 col-md-2 text-center text-md-right mt-sm-3 mt-xs-3">
+                    {/* this when in user page want to use the redux data */}
+                    <Link href={`/job/${profile.id}`}>
+                      <button className="btn btn-primary">Lihat Profile</button>
+                    </Link>
+                    {/* this when use the next router */}
                   </div>
                 </div>
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {totalPage > 0 ? (
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a
-                  class="page-link"
-                  href="#"
-                  onClick={() => {
-                    if (currentPage > 1) {
-                      handleNextPage(currentPage - 1);
-                    }
-                  }}
-                >
-                  Previous
-                </a>
-              </li>
-              {[...new Array(totalPage)]?.map((item, key) => {
-                const _page = ++key;
-
-                return (
-                  <li
-                    class={`page-item ${_page === currentPage ? "active" : ""}`}
-                    key={key}
-                    onClick={() => handleNextPage(_page)}
-                  >
-                    <a class="page-link" href="#">
-                      {_page}
-                    </a>
-                  </li>
-                );
-              })}
-              <li
-                class="page-item"
-                onClick={() => {
-                  if (currentPage < totalPage) {
-                    handleNextPage(currentPage + 1);
-                  }
-                }}
+              </div>
+            ))}
+            <div className="d-flex justify-content-center mt-4 mb-4">
+              <button
+                className="btn btn-outline-primary "
+                onClick={handlePrev}
+                disabled={currentPage === 0} // Disable 'Prev' button on the first page
               >
-                <a class="page-link" href="#">
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
-        ) : null}
+                Prev
+              </button>
+              {[...Array(5)].map((_, i) => {
+                const pageNumber = firstPageInSet + i;
+                if (pageNumber < totalPages) {
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(pageNumber)}
+                      className={`btn ${
+                        currentPage === pageNumber
+                          ? "btn-primary ms-2"
+                          : "btn-outline-primary ms-2"
+                      }`}
+                    >
+                      {pageNumber + 1}
+                    </button>
+                  );
+                }
+                return null;
+              })}
+              <button
+                className="btn btn-outline-primary ms-2"
+                onClick={handleNext}
+                disabled={currentPage === totalPages - 1} // Disable 'Next' button on the last page
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />
@@ -175,12 +293,18 @@ function Job(props) {
 }
 
 export async function getServerSideProps() {
-  const request = await axios
-    .get("https://hire-job.onrender.com/v1/job?page=1&limit=8")
-    .then((res) => res.data);
+  const response = await axios.get("https://hire-job.onrender.com/v1/job/all");
+  const data = response.data; // Assuming the response is an object that contains the array in a property called 'data'
+
+  // Check if the data is an array
+  if (Array.isArray(data)) {
+    // Assuming the array contains objects with 'id' property
+    data.sort((a, b) => a.id - b.id);
+  }
 
   // Pass data to the page via props
-  return { props: { request } };
+  return { props: { request: data } };
 }
+// job?page=1&limit=8
 
 export default Job;
