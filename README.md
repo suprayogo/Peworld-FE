@@ -24,9 +24,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 `https://github.com/suprayogo/hire-job-v1.git`
 
-- Clone This Repository
 
-`https://github.com/suprayogo/hire-job-v1.git`
 
 - Install Module
 
@@ -97,8 +95,8 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 <!-- RELATED PROJECT -->
 ## Related Project
 
-- [Food Peworld API](https://github.com/suprayogo/hire_job_be)
-- [Food Peworld Demo](https://hire-job-v1-rizki-suprayogo.vercel.app/)
+- [Peworld API](https://github.com/suprayogo/hire_job_be)
+- [Peworld Demo](https://hire-job-v1-rizki-suprayogo.vercel.app/)
 
 <!-- CONTACT INFO -->
 ## Contact Info
