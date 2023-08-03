@@ -84,15 +84,15 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 
 ### Edit Profile
-<img src="./readme/ss-add.jpeg" />
+<img src="./readme/ss-edit-profile.jpeg" />
 
 
 ### Job List
-<img src="./readme/ss-profile.jpeg" />
+<img src="./readme/ss-job-list.jpeg" />
 
 
 ### Hiring
-<img src="./readme/ss-profile.jpeg" />
+<img src="./readme/ss-hiring.jpeg" />
 
 <!-- RELATED PROJECT -->
 ## Related Project
