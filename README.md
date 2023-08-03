@@ -7,7 +7,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Peworld is a web-based application designed to streamline the recruitment process. The application boasts an attractive and user-friendly interface to help companies find and recruit suitable employees that match their requirements.
+Peworld is a web-based application build for recruitment process. The application design an attractive and user-friendly interface to help companies find and recruit suitable employees that match their requirements.
 
 ### Technology Used
 - [NextJS](https://nextjs.org/)
