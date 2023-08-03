@@ -293,7 +293,7 @@ function Job(props) {
 }
 
 export async function getServerSideProps() {
-  const response = await axios.get("https://hire-job.onrender.com/v1/job/all");
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/job/all`);
   const data = response.data; // Assuming the response is an object that contains the array in a property called 'data'
 
   // Check if the data is an array
