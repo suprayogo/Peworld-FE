@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Navbar from "@/components/navbar";
+import { useState } from "react";
 import Swal from "sweetalert2";
-import Footer from "@/components/footer";
 
 function Index() {
   const router = useRouter();
@@ -94,7 +94,7 @@ function Index() {
               </div>
               <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <h2 className="mb-4 mt-4">
-                  Kenapa harus mencari tallent di peworld
+                  Kenapa harus mencari tallent di Peworld
                 </h2>
 
                 <div className="row ">
@@ -144,7 +144,7 @@ function Index() {
             <div className="row justify-content-between align-items-center">
               <div className="col-md-5 col-lg-6 col-sm-12 col-xs-12 d-flex flex-column justify-content-center order-2 order-md-1">
                 <h2 className="d-block mt-3 mb-4">
-                  Skill tallent progammer terbaik di peworld
+                  Skill tallent progammer terbaik di Peworld
                 </h2>
 
                 <div className="row ">
