@@ -62,35 +62,22 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 - Run this project with `npm run dev`.
 
-
 <!-- SCREENSHOT -->
 ## Screenshot
 <hr>
 
-### Login
-<img src="./readme/ss-login.jpeg" />
+| Login         | Register      | Landing       |
+|---------------|---------------|---------------|
+| ![Login](./readme/ss-login.jpeg) | ![Register](./readme/ss-register.jpeg) | ![Landing](./readme/ss-landing.jpeg) |
 
-### Register
-<img src="./readme/ss-register.jpeg" />
+| Profile       | Edit Profile  | Job List      |
+|---------------|---------------|---------------|
+| ![Profile](./readme/ss-profile.jpeg) | ![Edit Profile](./readme/ss-edit-profile.jpeg) | ![Job List](./readme/ss-job-list.jpeg) |
 
-### Landing
-<img src="./readme/ss-landing.jpeg" />
+| Hiring        |
+|---------------|
+| ![Hiring](./readme/ss-hiring.jpeg) |
 
-
-### Profile
-<img src="./readme/ss-profile.jpeg" />
-
-
-### Edit Profile
-<img src="./readme/ss-edit-profile.jpeg" />
-
-
-### Job List
-<img src="./readme/ss-job-list.jpeg" />
-
-
-### Hiring
-<img src="./readme/ss-hiring.jpeg" />
 
 <!-- RELATED PROJECT -->
 ## Related Project
