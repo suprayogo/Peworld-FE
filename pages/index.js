@@ -54,7 +54,7 @@ function Index() {
                 </h1>
                 <p className="d-block mb-3"></p>
                 <div class="button-container">
-                  <Link href="#">
+                  <Link href="">
                     <button
                       class="btn btn-primary btn-lg"
                       onClick={handleButtonClick}

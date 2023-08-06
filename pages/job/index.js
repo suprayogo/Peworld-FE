@@ -61,7 +61,7 @@ function Job(props) {
       setFilteredData(sortedData);
     }
   };
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
 
   const profiles = filteredData
     .filter((item) => item.id !== user?.id)

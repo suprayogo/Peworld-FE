@@ -171,6 +171,14 @@ function Navbar() {
                         </button>
                       </Link>
 
+                      <Link href="#">
+                    <button className="btn btn-primary me-3 mb-2 mt-4" onClick={handleLogout}>
+                      Keluar
+                    </button>
+                  </Link>
+
+            
+
                       {/* button logout */}
                       {/* 
       <Link href="#" >

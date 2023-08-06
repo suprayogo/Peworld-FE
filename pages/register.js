@@ -34,18 +34,13 @@ function Register() {
     }
   
     // Show loading state while waiting for the response
-    Swal.fire({
-      title: "Registering...",
-      text: "Please wait while we process your registration",
-      icon: "info",
-      allowOutsideClick: false, // Prevents closing the loading state by clicking outside the modal
-      showConfirmButton: false, // Hide the 'OK' button in the loading state
-      onBeforeOpen: () => {
-        Swal.showLoading(); // Show the loading animation
-      },
-    });
-  
+ 
+     
+        Swal.showLoading() // Show the loading animation
+      
+ 
     try {
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`,
         {

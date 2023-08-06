@@ -196,9 +196,9 @@ function Profile({ profile }) {
                       </div>
                     ))
                   ) : (
-                    <h1 className="text-center text-secondary m-5">
-                      Pengalaman Kerja Kosong
-                    </h1>
+                    <h5 className="text-center text-secondary m-5">
+                       Pengalaman kerja tidak ditemukan
+                    </h5>
                   )}
                 </div>
               </div>

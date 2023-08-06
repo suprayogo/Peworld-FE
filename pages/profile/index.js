@@ -39,12 +39,9 @@ function Profile() {
         <NavbarTwo />
 
         <div className="container mt-5 mb-5" style={{ paddingTop: "80px" }}>
-          <div className="row">
-            <div className="col-3">
-              <div
-                className="card"
-                style={{ boxShadow: "0 0 10px 3px rgba(100, 100, 100, 0.7)" }}
-              >
+      <div className="row">
+        <div className="col-md-3 mb-5">
+          <div className="card" style={{ boxShadow: "0 0 10px 3px rgba(100, 100, 100, 0.7)" }}>
                 <img
                   src={profile?.photo}
                   className="rounded-circle object-fit-cover mx-auto d-block mt-3"
@@ -156,7 +153,7 @@ function Profile() {
  */}
               </div>
             </div>
-            <div className="col-9">
+            <div className="col-md-9">
               <div
                 className="card"
                 style={{ boxShadow: "0 0 10px 3px rgba(100, 100, 100, 0.7)" }}

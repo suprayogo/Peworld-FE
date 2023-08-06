@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faBell } from "@fortawesome/free-regular-svg-icons";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 function NavbarTwo() {
   const [navActive, setNavActive] = useState(null);
@@ -19,20 +20,39 @@ function NavbarTwo() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+  
+        // Show the loading spinner while fetching data
+        Swal.fire({
+          title: "Loading...",
+          text: "Memuat data",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+  
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+  
+        // Set the fetched data to the state
         setPhoto(response?.data?.data);
-       
+  
+        // Hide the loading spinner after data is fetched
+        Swal.close();
       } catch (error) {
         console.error(error);
+        // Hide the loading spinner in case of an error
+        Swal.close();
       }
     };
   
     fetchData();
   }, []);
+  
   
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,10 +63,24 @@ function NavbarTwo() {
     localStorage.clear();
     setAccess(false);
   
-    if (typeof window !== "undefined") {
-      window.location.href = "/";
-    }
+    // Show the loading spinner when logging out
+    Swal.fire({
+      title: "Logging out...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+        // Redirect to the home page after a short delay
+        setTimeout(() => {
+          if (typeof window !== "undefined") {
+            window.location.href = "/";
+          }
+        }, 1000);
+      },
+    });
   };
+  
   
   return (
     <>
@@ -98,9 +132,17 @@ function NavbarTwo() {
                         <li className="list-group-item">
                           <Link
                             className="text-black text-decoration-none mb-3 fw-medium"
+                            href="/"
+                          >
+                           Home
+                          </Link>
+                        </li>
+                        <li className="list-group-item">
+                          <Link
+                            className="text-black text-decoration-none mb-3 fw-medium"
                             href="/profile"
                           >
-                             profile
+                             Profile
                           </Link>
                         </li>
                         <li className="list-group-item">
@@ -173,6 +215,11 @@ function NavbarTwo() {
                       <Link href="/profile">
                         <button className="btn btn-primary me-3 mb-5 mt-1">
                           Setting
+                        </button>
+                      </Link>
+                      <Link href="/">
+                        <button className="btn btn-primary me-3 mb-5 mt-1">
+                   Home
                         </button>
                       </Link>
 
