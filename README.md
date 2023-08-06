@@ -30,6 +30,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 `npm install`
 
+
+- Setting .env
+
+```bash
+NEXT_PUBLIC_BASE_URL=YOUR_API_URL
+```
+
 - run the development server
 
 ```bash
@@ -38,12 +45,6 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-```
-
-- Setting .env
-
-```bash
-NEXT_PUBLIC_BASE_URL=YOUR_API_URL
 ```
 
 
