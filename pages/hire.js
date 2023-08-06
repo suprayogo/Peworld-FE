@@ -71,7 +71,7 @@ function Hire() {
       <div className="container mt-5 mb-5" >
         <div className="row">
           <div className="col-md-3 col-lg-3 col-xs-12 col-sm-12">
-            <div className="card"          style={{ boxShadow: "0 0 10px 3px rgba(100, 100, 100, 0.7)" }}>
+            <div className="card mb-5"          style={{ boxShadow: "0 0 10px 3px rgba(100, 100, 100, 0.7)" }}>
               <img
                 src={user?.photo}
                 className="rounded-circle mx-auto d-block mt-3 object-fit-cover"
