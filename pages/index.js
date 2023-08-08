@@ -70,7 +70,7 @@ function Index() {
                 <img
                   src="/home-img-1.png"
                   alt="Home Picture"
-                  className="responsive-image"
+                  className="responsive-image "
                 />
               </div>
             </div>

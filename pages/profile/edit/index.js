@@ -605,29 +605,33 @@ function Edit() {
                     />
                   </div>
                   <div className="d-flex">
-                    <div className="col-6 ms-5 mt-2 mb-3">
-                      <label className="form-label">Nama Perusahaan</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="inputCompanyName"
-                        aria-describedby="position"
-                      />
-                    </div>
-                    <div className="col-4 m-2 mt-2 mb-3">
-                      <label className="form-label">Bulan/Tahun</label>
-                      <DatePicker
-                        selected={selectedDate}
-                        onChange={(date) => setSelectedDate(date)}
-                        dateFormat="MMMM yyyy"
-                        locale={id}
-                        className="form-control"
-                        id="inputMonthYear"
-                        showMonthYearPicker
-                        aria-describedby="position"
-                      />
-                    </div>
-                  </div>
+  <div className="col-6 ms-5 mt-2 mb-3">
+    <label className="form-label">Nama Perusahaan</label>
+    <input
+      type="text"
+      className="form-control"
+      id="inputCompanyName"
+      aria-describedby="position"
+    />
+  </div>
+  <div className="col-4 m-2 mt-2 mb-3">
+    <label className="form-label">Bulan/Tahun</label>
+    <div className="col-5 col-md-5">
+    <DatePicker
+      selected={selectedDate}
+      onChange={(date) => setSelectedDate(date)}
+      dateFormat="MMMM yyyy"
+      locale={id}
+      className="form-control"
+      id="inputMonthYear"
+      showMonthYearPicker
+      aria-describedby="position"
+    />
+    </div>
+  </div>
+</div>
+
+
                   <div className="m-5 mt-2 mb-3">
                     <label htmlFor="inputJodPlace" className="form-label">
                       Deskripsi Singkat
