@@ -22,7 +22,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 - Clone This Repository
 
-`https://github.com/suprayogo/Peworld-FE.git`
+`https://github.com/suprayogo/Peworld-Web.git`
 
 
 
