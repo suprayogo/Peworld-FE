@@ -87,10 +87,11 @@ function Navbar() {
               {/* (START) FOR DEKSTOP */}
               {access ? (
                 <div className="desktop-content">
+                  <div className="d-flex justify-content-end align-items-center">
                   <Link
                     href="/"
-                    className="text-black fw-medium text-decoration-none "
-                    style={{ marginRight: "45rem", marginLeft: "12px" }}
+                    className="text-black de-19-28  fw-medium text-decoration-none "
+                   
                     onClick={handleButtonClick}
                     disabled={isLoading}
                   >
@@ -98,7 +99,7 @@ function Navbar() {
                   </Link>
 
                   <Link href="/profile">
-                    <button className="btn btn-primary me-3 mb-2 mt-2">
+                    <button className="btn  btn-primary me-3 mb-2 mt-2">
                       Profile
                     </button>
                   </Link>
@@ -110,6 +111,7 @@ function Navbar() {
                       Keluar
                     </button>
                   </Link>
+                  </div>
                 </div>
               ) : (
                 <>
