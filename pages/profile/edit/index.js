@@ -60,16 +60,15 @@ function Edit() {
     }
   };
 
- 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Check if a new file is selected
     if (selectedFile) {
       // Create a FormData object to send the file
       const formData = new FormData();
       formData.append("photo", selectedFile);
-  
+
       try {
         const token = localStorage.getItem("token");
         await axios.patch(
@@ -88,22 +87,28 @@ function Edit() {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: error.response?.data?.messages || "Error updating profile picture. Please try again later.",
+          text:
+            error.response?.data?.messages ||
+            "Error updating profile picture. Please try again later.",
           confirmButtonText: "OK",
         });
-        console.log( error.response?.data?.messages );
+        console.log(error.response?.data?.messages);
         return; // Stop further execution if there's an error
       }
     }
-  
+
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}/profile`, profile, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-  
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/profile`,
+        profile,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       // Display success message
       Swal.fire({
         icon: "success",
@@ -114,27 +119,33 @@ function Edit() {
         router.replace("/profile");
         // Perform any additional actions after the profile update
       });
- 
-} catch (error) {
-  console.error("Error updating profile:", error);
-  const messages = error?.response?.data?.messages;
-  const errorFields = ["job_title", "description", "company", "domicile", "email", "fullname"];
-  let errorMessage = "Error updating profile. Please try again later.";
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      const messages = error?.response?.data?.messages;
+      const errorFields = [
+        "job_title",
+        "description",
+        "company",
+        "domicile",
+        "email",
+        "fullname",
+      ];
+      let errorMessage = "Error updating profile. Please try again later.";
 
-  for (const field of errorFields) {
-    if (messages[field]?.message) {
-      errorMessage = messages[field].message;
-      break;
+      for (const field of errorFields) {
+        if (messages[field]?.message) {
+          errorMessage = messages[field].message;
+          break;
+        }
+      }
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: errorMessage,
+        confirmButtonText: "OK",
+      });
     }
-  }
-
-  Swal.fire({
-    icon: "error",
-    title: "Error",
-    text: errorMessage,
-    confirmButtonText: "OK",
-  });
-}
   };
 
   const handleInputChange = (e) => {
@@ -615,32 +626,31 @@ function Edit() {
                     />
                   </div>
                   <div className="d-flex">
-  <div className="col-6 ms-5 mt-2 mb-3">
-    <label className="form-label">Nama Perusahaan</label>
-    <input
-      type="text"
-      className="form-control"
-      id="inputCompanyName"
-      aria-describedby="position"
-    />
-  </div>
-  <div className="col-4 m-2 mt-2 mb-3">
-    <label className="form-label">Bulan/Tahun</label>
-    <div className="col-5 col-md-5">
-    <DatePicker
-      selected={selectedDate}
-      onChange={(date) => setSelectedDate(date)}
-      dateFormat="MMMM yyyy"
-      locale={id}
-      className="form-control"
-      id="inputMonthYear"
-      showMonthYearPicker
-      aria-describedby="position"
-    />
-    </div>
-  </div>
-</div>
-
+                    <div className="col-6 ms-5 mt-2 mb-3">
+                      <label className="form-label">Nama Perusahaan</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="inputCompanyName"
+                        aria-describedby="position"
+                      />
+                    </div>
+                    <div className="col-4 m-2 mt-2 mb-3">
+                      <label className="form-label">Bulan/Tahun</label>
+                      <div className="col-5 col-md-5">
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={(date) => setSelectedDate(date)}
+                          dateFormat="MMMM yyyy"
+                          locale={id}
+                          className="form-control"
+                          id="inputMonthYear"
+                          showMonthYearPicker
+                          aria-describedby="position"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="m-5 mt-2 mb-3">
                     <label htmlFor="inputJodPlace" className="form-label">

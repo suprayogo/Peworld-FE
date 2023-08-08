@@ -108,7 +108,14 @@ function Profile() {
                     width={`20`}
                     height={`20`}
                   />
-                  <p className="text-muted">{profile?.email?.toLowerCase()}</p>
+                  <p className="text-muted" 
+   style={{
+    wordWrap: "break-word", 
+    maxWidth: "100%", 
+    width:"87%"
+  }}
+
+                  >{profile?.email?.toLowerCase()}</p>
                 </div>
 
                 <div className="card-location mb-0 ms-3 d-flex">
