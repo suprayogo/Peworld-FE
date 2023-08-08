@@ -114,17 +114,27 @@ function Edit() {
         router.replace("/profile");
         // Perform any additional actions after the profile update
       });
-    } catch (error) {
-      console.error("Error updating profile:", error);
-   
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error?.response?.data?.messages?.job_title?.message || "Error updating profile. Please try again later.",
-        confirmButtonText: "OK",
-      });
-      console.log( );
+ 
+} catch (error) {
+  console.error("Error updating profile:", error);
+  const messages = error?.response?.data?.messages;
+  const errorFields = ["job_title", "description", "company", "domicile", "email", "fullname"];
+  let errorMessage = "Error updating profile. Please try again later.";
+
+  for (const field of errorFields) {
+    if (messages[field]?.message) {
+      errorMessage = messages[field].message;
+      break;
     }
+  }
+
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: errorMessage,
+    confirmButtonText: "OK",
+  });
+}
   };
 
   const handleInputChange = (e) => {
